@@ -14,4 +14,8 @@ export class EnvService {
   get nodeEnv(): NodeEnv {
     return this.configService.getOrThrow<NodeEnv>('NODE_ENV');
   }
+
+  get databaseURL(): string {
+    return this.configService.getOrThrow<string>('DATABASE_URL');
+  }
 }
