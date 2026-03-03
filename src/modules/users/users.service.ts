@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 import { PrismaUsersRepository } from './users.repository';
 
-import type { User } from 'src/entities/user';
+import { UserWithReadings } from './types/user-with-readings';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: PrismaUsersRepository) {}
 
-  listAll(): Promise<User[]> {
-    return this.usersRepository.getAll();
+  listAllWithReadings(): Promise<UserWithReadings[]> {
+    return this.usersRepository.getAllWithReadings();
   }
 }

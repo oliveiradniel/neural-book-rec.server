@@ -1,5 +1,5 @@
-import { User } from 'src/entities/user';
+import type { UserWithReadings } from '../types/user-with-readings';
 
 export abstract class UsersRepository {
-  abstract getAll(): Promise<User[]>;
+  abstract getAllWithReadings(): Promise<UserWithReadings[]>;
 }
