@@ -1,0 +1,65 @@
+import { Genre } from '@prisma/client';
+
+export const users = [
+  { name: 'Lucas Almeida', age: 22 },
+  { name: 'Mariana Costa', age: 27 },
+  { name: 'Pedro Henrique Souza', age: 31 },
+  { name: 'Ana Beatriz Lima', age: 19 },
+  { name: 'Gabriel Martins', age: 35 },
+  { name: 'Juliana Rocha', age: 24 },
+  { name: 'Rafael Oliveira', age: 29 },
+  { name: 'Camila Fernandes', age: 33 },
+  { name: 'Thiago Carvalho', age: 26 },
+  { name: 'Larissa Gomes', age: 21 },
+  { name: 'Bruno Ribeiro', age: 38 },
+  { name: 'Isabela Santos', age: 28 },
+  { name: 'Felipe Barbosa', age: 30 },
+  { name: 'Amanda Nunes', age: 23 },
+  { name: 'Vinícius Teixeira', age: 34 },
+];
+
+export const authors = [
+  { name: 'J.K. Rowling' },
+  { name: 'George R.R. Martin' },
+  { name: 'J.R.R. Tolkien' },
+  { name: 'Isaac Asimov' },
+  { name: 'Stephen King' },
+  { name: 'Agatha Christie' },
+  { name: 'Machado de Assis' },
+  { name: 'Clarice Lispector' },
+  { name: 'George Orwell' },
+  { name: 'Aldous Huxley' },
+  { name: 'Fiódor Dostoiévski' },
+  { name: 'Jane Austen' },
+  { name: 'Mark Twain' },
+  { name: 'Ernest Hemingway' },
+  { name: 'C.S. Lewis' },
+  { name: 'Dan Brown' },
+  { name: 'Suzanne Collins' },
+  { name: 'Rick Riordan' },
+  { name: 'Harper Lee' },
+  { name: 'Mary Shelley' },
+];
+
+const genreValues: Genre[] = [
+  'FANTASY',
+  'SCIENCE_FICTION',
+  'ROMANCE',
+  'HORROR',
+  'THRILLER',
+  'MYSTERY',
+  'ADVENTURE',
+  'DRAMA',
+  'HISTORICAL_FICTION',
+  'DYSTOPIA',
+  'BIOGRAPHY',
+  'PHILOSOPHY',
+  'SELF_HELP',
+  'BUSINESS',
+  'SCIENCE',
+  'TECHNOLOGY',
+  'POETRY',
+  'CHILDREN',
+];
+
+export const literaryGenres = genreValues.map((g) => ({ name: g }));
