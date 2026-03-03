@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EnvModule } from './config/env/env.module';
 import { DatabaseModule } from './infra/database/database.module';
 import { UsersModule } from './modules/users/users.module';
+import { BooksModule } from './modules/books/books.module';
 
 import { envValidate } from './config/env/env.validate';
 
@@ -19,6 +20,7 @@ import { EnvironmentVariablesDTO } from './config/env/env.dto';
     EnvModule,
     DatabaseModule,
     UsersModule,
+    BooksModule,
   ],
   controllers: [],
   providers: [],
