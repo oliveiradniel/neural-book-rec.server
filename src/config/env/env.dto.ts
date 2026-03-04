@@ -37,4 +37,8 @@ export class EnvironmentVariablesDTO {
   @Matches(/^postgres(ql)?:\/\//)
   @IsNotEmpty()
   DATABASE_URL!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  FRONTEND_ORIGIN!: string;
 }
