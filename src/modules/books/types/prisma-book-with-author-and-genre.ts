@@ -6,6 +6,7 @@ export type PrismaBookWithAuthorAndGenre = Prisma.BookGetPayload<{
     title: true;
     author: {
       select: {
+        id: true;
         name: true;
       };
     };
@@ -18,6 +19,7 @@ export type PrismaBookWithAuthorAndGenre = Prisma.BookGetPayload<{
       select: {
         literaryGenre: {
           select: {
+            id: true;
             name: true;
           };
         };
