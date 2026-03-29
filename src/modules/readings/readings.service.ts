@@ -32,7 +32,7 @@ export class ReadingsService {
   async update(data: UpdateReadingData): Promise<Reading> {
     const reading = await this.findById({ id: data.id, haveToExist: true });
 
-    const noReview = data?.rating === null || reading?.rating === null;
+    const noReview = data?.rating === null && reading?.rating === null;
 
     if (data.status === ReadingStatus.READ && noReview) {
       throw new ConflictException(
