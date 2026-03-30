@@ -5,7 +5,7 @@ import { PrismaBooksRepository } from './books.repository';
 import type { BookWithAuthorAndGenre } from './types/book-with-author-and-genre';
 import type { Book } from 'src/entities/book';
 import type { BookSummary } from './types/book-summary';
-import type { UnreadBooks } from './types/unread-books';
+import type { UnreadBook } from './types/unread-book';
 
 @Injectable()
 export class BooksService {
@@ -19,7 +19,7 @@ export class BooksService {
     return this.booksRepository.getBookSummary();
   }
 
-  listUnreadBooksByUserId(userId: string): Promise<UnreadBooks[]> {
+  listUnreadBooksByUserId(userId: string): Promise<UnreadBook[]> {
     return this.booksRepository.getUnreadBooksByUserId(userId);
   }
 

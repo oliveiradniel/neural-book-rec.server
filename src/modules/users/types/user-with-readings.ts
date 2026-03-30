@@ -1,4 +1,4 @@
-import { ReadingWithAuthorAndGenres } from './reading-with-author-and-genres';
+import { ReadingDetails } from 'src/modules/readings/types/reading-details';
 
 export type UserWithReadings = {
   id: string;
@@ -8,5 +8,5 @@ export type UserWithReadings = {
     read: number;
     wantToRead: number;
   };
-  readings: ReadingWithAuthorAndGenres[];
+  readings: ReadingDetails[];
 };

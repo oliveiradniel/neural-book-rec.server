@@ -8,6 +8,8 @@ import { ReadingsRepository } from './contracts/readings-repository';
 
 import type { Reading } from 'src/entities/reading';
 import type { UpdateReadingData } from './types/update-reading-data.type';
+import type { CreateReadingData } from './types/create-reading-data.type';
+import type { ReadingDetails } from './types/reading-details';
 
 @Injectable()
 export class PrismaReadingsRepository implements ReadingsRepository {
@@ -23,9 +25,57 @@ export class PrismaReadingsRepository implements ReadingsRepository {
     return reading ? ReadingMapper.toDomain(reading) : null;
   }
 
-  async update({ id, ...data }: UpdateReadingData): Promise<Reading> {
+  async create({
+    userId,
+    bookId,
+    status,
+    rating,
+  }: CreateReadingData): Promise<ReadingDetails> {
+    const createdReading = await this.prismaService.reading.create({
+      data: {
+        userId,
+        bookId,
+        status,
+        rating,
+      },
+      select: {
+        id: true,
+        rating: true,
+        status: true,
+        book: {
+          select: {
+            id: true,
+            title: true,
+            genres: {
+              select: {
+                literaryGenre: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
+            author: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return ReadingMapper.toDomainDetails(createdReading);
+  }
+
+  async update({ id, status, rating }: UpdateReadingData): Promise<Reading> {
     const updatedReading = await this.prismaService.reading.update({
-      data,
+      data: {
+        status,
+        rating,
+      },
       where: {
         id,
       },

@@ -1,8 +1,5 @@
 import { Genre as DomainGenre } from 'src/entities/literary-genre';
-import {
-  ReadingStatus as DomainReadingStatus,
-  ReadingStatus,
-} from 'src/entities/reading';
+import { ReadingStatus as DomainReadingStatus } from 'src/entities/reading';
 import {
   Genre as PrismaGenre,
   ReadingStatus as PrismaReadingStatus,
