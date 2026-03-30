@@ -4,6 +4,7 @@ import type { ReaderProfile } from '../types/reader-profile';
 import type { OnlyUserNames } from '../types/only-user-names';
 
 export abstract class UsersRepository {
+  abstract getById(id: string): Promise<User | null>;
   abstract getAll(): Promise<User[]>;
   abstract getOnlyNames(): Promise<OnlyUserNames[]>;
   abstract getWithReadings(id: string): Promise<UserWithReadings | null>;

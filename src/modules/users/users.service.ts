@@ -11,6 +11,10 @@ import { OnlyUserNames } from './types/only-user-names';
 export class UsersService {
   constructor(private readonly usersRepository: PrismaUsersRepository) {}
 
+  findById(id: string): Promise<User | null> {
+    return this.usersRepository.getById(id);
+  }
+
   listAll(): Promise<User[]> {
     return this.usersRepository.getAll();
   }
@@ -36,5 +40,4 @@ export class UsersService {
   listAllWithReadings(): Promise<UserWithReadings[]> {
     return this.usersRepository.getAllWithReadings();
   }
-
 }

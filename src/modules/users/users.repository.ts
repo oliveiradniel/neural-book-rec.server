@@ -6,13 +6,17 @@ import { PrismaService } from 'src/infra/database/prisma.service';
 
 import type { UsersRepository } from './contracts/users-repository.contract';
 import type { UserWithReadings } from './types/user-with-readings';
-import { User } from 'src/entities/user';
-import { ReaderProfile } from './types/reader-profile';
-import { OnlyUserNames } from './types/only-user-names';
+import type { User } from 'src/entities/user';
+import type { ReaderProfile } from './types/reader-profile';
+import type { OnlyUserNames } from './types/only-user-names';
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private readonly prismaService: PrismaService) {}
+
+  getById(id: string): Promise<User | null> {
+    return this.prismaService.user.findUnique({ where: { id } });
+  }
 
   getAll(): Promise<User[]> {
     return this.prismaService.user.findMany();
@@ -160,6 +164,4 @@ export class PrismaUsersRepository implements UsersRepository {
 
     return UserMapper.toDomainList(users);
   }
-
-  
 }
