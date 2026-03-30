@@ -4,8 +4,8 @@ import type { BookWithAuthorAndGenre } from '../types/book-with-author-and-genre
 import type { PrismaBookWithAuthorAndGenre } from '../types/prisma-book-with-author-and-genre';
 import type { PrismaBookSummary } from '../types/prisma-book-summary';
 import type { BookSummary } from '../types/book-summary';
-import type { PrismaUnreadBooks } from '../types/prisma-unread-books';
-import type { UnreadBooks } from '../types/unread-books';
+import type { UnreadBook } from '../types/unread-book';
+import { PrismaUnreadBook } from '../types/prisma-unread-book';
 
 export class BookMapper {
   static toDomain(book: PrismaBookWithAuthorAndGenre): BookWithAuthorAndGenre {
@@ -62,7 +62,7 @@ export class BookMapper {
     return books.map((book) => BookMapper.toDomainBookSummary(book));
   }
 
-  static toDomainUnreadBook(book: PrismaUnreadBooks): UnreadBooks {
+  static toDomainUnreadBook(book: PrismaUnreadBook): UnreadBook {
     const literaryGenres = book.genres.map((genre) => ({
       id: genre.literaryGenre.id,
       name: UserMapper.toDomainGenre(genre.literaryGenre.name),
@@ -80,7 +80,7 @@ export class BookMapper {
     };
   }
 
-  static toDomainUnreadBookList(books: PrismaUnreadBooks[]): UnreadBooks[] {
+  static toDomainUnreadBookList(books: PrismaUnreadBook[]): UnreadBook[] {
     return books.map((book) => BookMapper.toDomainUnreadBook(book));
   }
 }

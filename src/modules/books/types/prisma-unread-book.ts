@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-export type PrismaUnreadBooks = Prisma.BookGetPayload<{
+export type PrismaUnreadBook = Prisma.BookGetPayload<{
   select: {
     id: true;
     title: true;

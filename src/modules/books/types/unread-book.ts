@@ -1,6 +1,6 @@
 import { Genre } from 'src/entities/literary-genre';
 
-export type UnreadBooks = {
+export type UnreadBook = {
   id: string;
   title: string;
   author: {

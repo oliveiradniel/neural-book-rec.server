@@ -8,7 +8,9 @@ import type { BooksRepository } from './contracts/books-repository';
 import type { BookWithAuthorAndGenre } from './types/book-with-author-and-genre';
 import type { Book } from 'src/entities/book';
 import type { BookSummary } from './types/book-summary';
-import type { UnreadBooks } from './types/unread-books';
+import type { UnreadBook } from './types/unread-book';
+
+import { ReadingStatus } from '@prisma/client';
 
 @Injectable()
 export class PrismaBooksRepository implements BooksRepository {
@@ -35,11 +37,11 @@ export class PrismaBooksRepository implements BooksRepository {
     return BookMapper.toDomainBookSummaryList(books);
   }
 
-  async getUnreadBooksByUserId(userId: string): Promise<UnreadBooks[]> {
+  async getUnreadBooksByUserId(userId: string): Promise<UnreadBook[]> {
     const books = await this.prismaService.book.findMany({
       where: {
         readings: {
-          none: { userId, status: 'READ' },
+          none: { userId },
         },
       },
       select: {
@@ -59,7 +61,11 @@ export class PrismaBooksRepository implements BooksRepository {
         },
         _count: {
           select: {
-            readings: true,
+            readings: {
+              where: {
+                status: ReadingStatus.READ,
+              },
+            },
           },
         },
       },
