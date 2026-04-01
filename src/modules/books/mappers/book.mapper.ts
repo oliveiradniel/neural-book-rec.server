@@ -5,7 +5,7 @@ import type { PrismaBookWithAuthorAndGenre } from '../types/prisma-book-with-aut
 import type { PrismaBookSummary } from '../types/prisma-book-summary';
 import type { BookSummary } from '../types/book-summary';
 import type { UnreadBook } from '../types/unread-book';
-import { PrismaUnreadBook } from '../types/prisma-unread-book';
+import type { PrismaUnreadBook } from '../types/prisma-unread-book';
 
 export class BookMapper {
   static toDomain(book: PrismaBookWithAuthorAndGenre): BookWithAuthorAndGenre {
@@ -48,13 +48,20 @@ export class BookMapper {
   }
 
   static toDomainBookSummary(book: PrismaBookSummary): BookSummary {
-    const literaryGenreIds = book.genres.map((genre) => genre.literaryGenreId);
+    const literaryGenres = book.genres.map((genre) => ({
+      id: genre.literaryGenre.id,
+      name: UserMapper.toDomainGenre(genre.literaryGenre.name),
+    }));
 
     return {
       id: book.id,
       title: book.title,
-      authorId: book.authorId,
-      literaryGenreIds,
+      author: {
+        id: book.author.id,
+        name: book.author.name,
+      },
+      literaryGenres,
+      countActiveReadings: book._count.readings,
     };
   }
 

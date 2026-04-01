@@ -1,8 +1,12 @@
-import { LiteraryGenre } from 'src/entities/literary-genre';
-import { PrismaService } from 'src/infra/database/prisma.service';
-import { LiteraryGenresRepository } from './contracts/literary-genres-repository.contract';
-import { LiteraryGenreMapper } from './mappers/literary-genre.mapper';
 import { Injectable } from '@nestjs/common';
+
+import { PrismaService } from 'src/infra/database/prisma.service';
+
+import { LiteraryGenresRepository } from './contracts/literary-genres-repository.contract';
+
+import { LiteraryGenreMapper } from './mappers/literary-genre.mapper';
+
+import type { LiteraryGenre } from 'src/entities/literary-genre';
 
 @Injectable()
 export class PrismaLiteraryGenresRepository implements LiteraryGenresRepository {
