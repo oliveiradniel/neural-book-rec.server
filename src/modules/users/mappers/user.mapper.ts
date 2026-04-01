@@ -65,10 +65,10 @@ export class UserMapper {
   static toDomainReaderProfile(user: PrismaReaderProfile): ReaderProfile {
     const readings = user.readings.map((reading) => {
       return {
+        rating: reading.rating as number,
         book: {
           id: reading.book.id,
           authorId: reading.book.authorId,
-          rating: reading.rating as number,
           literaryGenreIds: reading.book.genres.map(
             (genre) => genre.literaryGenreId,
           ),
