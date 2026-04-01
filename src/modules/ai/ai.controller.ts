@@ -17,6 +17,11 @@ import type { RecommendedReading } from './types/recommended-reading.type';
 export class AIController {
   constructor(private readonly recommenderService: RecommenderService) {}
 
+  @Get('has-model')
+  hasModel(): { hasModel: boolean } {
+    return this.recommenderService.hasModel();
+  }
+
   @Post('train')
   @HttpCode(HttpStatus.OK)
   train(): Promise<void> {

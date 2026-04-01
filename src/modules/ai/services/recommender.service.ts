@@ -24,6 +24,10 @@ export class RecommenderService {
     private readonly usersService: UsersService,
   ) {}
 
+  hasModel(): { hasModel: boolean } {
+    return { hasModel: !!this.model };
+  }
+
   async train(): Promise<void> {
     const context = await this.contextService.create();
 
