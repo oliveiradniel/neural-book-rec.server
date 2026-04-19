@@ -18,7 +18,7 @@ export class AIController {
   constructor(private readonly recommenderService: RecommenderService) {}
 
   @Get('has-model')
-  hasModel(): { hasModel: boolean } {
+  hasModel(): boolean {
     return this.recommenderService.hasModel();
   }
 

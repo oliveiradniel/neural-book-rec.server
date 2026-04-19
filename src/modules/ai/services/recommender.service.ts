@@ -1,6 +1,9 @@
 import * as tf from '@tensorflow/tfjs-node';
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+
+import path from 'path';
+import fs from 'fs';
 
 import { ContextService } from './context.service';
 import { FeatureEngineeringService } from './feature-engineering.service';
@@ -12,9 +15,9 @@ import type { Context } from '../types/context/context.types';
 import type { RecommendedReading } from '../types/recommended-reading.type';
 
 @Injectable()
-export class RecommenderService {
-  private model: tf.LayersModel;
-  private context: Context;
+export class RecommenderService implements OnModuleInit {
+  private model: tf.LayersModel | null;
+  private context: Context | null;
 
   constructor(
     private readonly contextService: ContextService,
@@ -22,10 +25,35 @@ export class RecommenderService {
     private readonly modelService: ModelService,
     private readonly datasetService: DatasetService,
     private readonly usersService: UsersService,
-  ) {}
+  ) {
+    this.model = null;
+    this.context = null;
+  }
 
-  hasModel(): { hasModel: boolean } {
-    return { hasModel: !!this.model };
+  async onModuleInit() {
+    const modelDir = path.resolve(process.cwd(), 'models/recommender-model');
+
+    const modelPath = path.join(modelDir, 'model.json');
+
+    const modelExists = fs.existsSync(modelPath);
+
+    if (modelExists) {
+      this.model = await tf.loadLayersModel(`file://${modelPath}`);
+      this.context = await this.contextService.create();
+
+      console.log('✅ Loaded model');
+    } else {
+      console.log('⚠️ Model not found, training...');
+
+      await this.train();
+
+      fs.mkdirSync(modelDir, { recursive: true });
+      await this.model?.save(`file://${modelDir}`);
+    }
+  }
+
+  hasModel(): boolean {
+    return !!this.model;
   }
 
   async train(): Promise<void> {

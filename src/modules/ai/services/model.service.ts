@@ -2,6 +2,9 @@ import * as tf from '@tensorflow/tfjs-node';
 
 import { Injectable } from '@nestjs/common';
 
+import path from 'path';
+import fs from 'fs';
+
 import type { UserBookTrainingData } from '../types/dataset/user-book-training-data.type';
 
 @Injectable()
@@ -38,6 +41,12 @@ export class ModelService {
       batchSize: 32,
       shuffle: true,
     });
+
+    const modelDir = path.resolve('./models/recommender-model');
+
+    fs.mkdirSync(modelDir, { recursive: true });
+
+    await model.save(`file://${modelDir}`);
 
     return model;
   }
